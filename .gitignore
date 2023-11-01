@@ -1,0 +1,13 @@
+# venv
+.venv
+venv
+
+# Secrets
+.secrets
+
+# Environments
+*.env*
+
+# Python
+*.py[cod]
+__pycache__
