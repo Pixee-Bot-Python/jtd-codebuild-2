@@ -53,7 +53,7 @@ The path for the merged schema file converted in json format.
 
 Defaults to `gen/schema.jtd.json`
 
-#### `include`
+#### `includes`
 
 Array of JTD package paths to include.
 
