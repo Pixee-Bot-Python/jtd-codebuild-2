@@ -57,8 +57,8 @@ Defaults to `gen/schema.jtd.json`
 
 Array of JTD package paths to include.
 
-The path should have `jtd-codegen.json` file in it 
-so that this tool can find the codegen configuration.
+The path should have `jtd-codebuild.json` file in it 
+so that this tool can find the codebuild configuration.
 
 If you specifiy a package path,
 it will reference the package's schema definitions 
@@ -103,6 +103,7 @@ Example congfiguration file is provided below. Copy it and modify it to your nee
   "root-schema-path": "schema.jtd.yaml",
   "definitions-path": "definitions",
   "output-schema-path": "gen/schema.jtd.json",
+  "includes": ["../path/to/another/folder/that/contains/jtd-codebuild.json"],
   "targets": [
     {
       "language": "python",
