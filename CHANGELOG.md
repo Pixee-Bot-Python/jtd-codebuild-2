@@ -2,6 +2,31 @@
 
 
 
+## v0.2.0 (2023-11-24)
+
+### Documentation
+
+* docs: update docs for subscriptable feature ([`2fe25c7`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/2fe25c7843e6c8793e59b4c9d4b5c664f24817ba))
+
+### Feature
+
+* feat: subscriptable dataclass for python codegen ([`e58f201`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/e58f20140f21fa523e52356093007cb6bf82aef4))
+
+### Refactor
+
+* refactor: modularize ([`17bfc79`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/17bfc790bb076854859b5f9a647c87eec351ecba))
+
+### Unknown
+
+* Merge branch &#39;dev&#39; ([`2d60446`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/2d60446ac3a2fe6fa3a641dadd4ec6418ec5b9b8))
+
+* [no ci] docs: update ([`5c1ad0a`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/5c1ad0a4fe8c8f1cb942b549076981dae96a4e7f))
+
+* Merge branch &#39;dev&#39; ([`a4bb789`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/a4bb789b0086ad75c8b3e7c1c92d52d3cbcec56a))
+
+* [no ci] docs: fix typo ([`bba5648`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/bba56483ac1adbd235cd0bf4282eccad02eef572))
+
+
 ## v0.1.0 (2023-11-01)
 
 ### Chore
