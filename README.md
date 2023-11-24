@@ -234,3 +234,11 @@ user:
       elements:
         ref: book
 ```
+
+## Contributing
+
+Any contribution is welcome! Check out [CONTRIBUTING.md](https://github.com/01Joseph-Hwang10/jtd-codebuild/blob/master/.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](https://github.com/01Joseph-Hwang10/jtd-codebuild/blob/master/.github/CODE_OF_CONDUCT.md) for more information on how to get started.
+
+## License
+
+`jtd-codebuild` is licensed under a [MIT License](https://github.com/01Joseph-Hwang10/jtd-codebuild/blob/master/LICENSE).
