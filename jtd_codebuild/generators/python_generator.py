@@ -49,6 +49,9 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
         "    def __setitem__(self, key: str, value: Any) -> None:\n",
         "        setattr(self, key, value)\n",
         "\n",
+        "    def get(self, key: str, default: Any = None) -> None:\n",
+        "        return getattr(self, key, default)\n",
+        "\n",
     ]
     """These lines are injected to the generated code to make the dataclass
     subscriptable.

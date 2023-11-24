@@ -46,3 +46,6 @@ def test_example_project_1():
     # It should be able to modify the attributes with subscript notation
     book["id"] = "3"
     assert book.id == "3"
+
+    # It should be able to access the attributes with `get` method
+    assert book.get("id") == "3"
