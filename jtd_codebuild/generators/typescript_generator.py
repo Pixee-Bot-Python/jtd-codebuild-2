@@ -13,25 +13,35 @@ class JTDCodeGeneratorTypescriptTarget(JTDCodeGenerator):
     if tsconfig is provided.
     """
 
-    def generate(self, target: Dict[AnyStr, Any]) -> List[subprocess.Popen]:
-        if target["language"] != "typescript":
-            raise ValueError("Target language must be typescript")
+    def _compile_typescript(self, tsconfig_path: str) -> subprocess.Popen:
+        """Compile the generated TypeScript code to JavaScript.
 
-        processes = super().generate(target)
-        if "tsconfig-path" not in target:
-            return processes
-
-        # Wait for existing processes to finish before starting the compilation
-        # process.
-        wait_for_processes(processes, print_stdout=False)
-
-        # Compile the generated TypeScript code to JavaScript
-        tsconfig_path = os.path.join(self.cwd, target["tsconfig-path"])
-        compile_process = subprocess.Popen(
+        Args:
+            tsconfig_path: The path to the tsconfig.json file.
+        """
+        return subprocess.run(
             f"tsc --project {tsconfig_path}",
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
 
-        return processes + [compile_process]
+    def generate(self, target: Dict[AnyStr, Any]) -> List[subprocess.Popen]:
+        if target["language"] != "typescript":
+            raise ValueError("Target language must be typescript")
+
+        processes = super().generate(target)
+
+        if "tsconfig-path" in target:
+            # Wait for existing processes to finish before starting the compilation
+            # process.
+            wait_for_processes(processes, print_stdout=False)
+
+            # Compile the generated TypeScript code to JavaScript
+            compile_process = self._compile_typescript(
+                tsconfig_path=os.path.join(self.cwd, target["tsconfig-path"]),
+            )
+
+            processes.append(compile_process)
+
+        return processes

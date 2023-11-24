@@ -135,18 +135,7 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
 
         return lines
 
-    def generate(self, target: Dict[AnyStr, Any]) -> List[subprocess.Popen]:
-        if target["language"] != "python":
-            raise ValueError("Target language must be python")
-
-        processes = super().generate(target)
-        if "use-pydantic" not in target or not target["use-pydantic"]:
-            return processes
-
-        # Wait for existing processes to finish before starting the modification
-        # process.
-        wait_for_processes(processes, print_stdout=False)
-
+    def _use_pydantic(self, target: Dict[AnyStr, Any]) -> bool:
         # Inject pydantic's dataclass decorator to the generated code
         # if `use-pydantic` is set to true.
         target_path = self.get_target_path(target)
@@ -178,5 +167,17 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
         # Write the modified code to the file
         with self._open_schema_file(target_path, "w") as f:
             f.writelines(lines)
+
+    def generate(self, target: Dict[AnyStr, Any]) -> List[subprocess.Popen]:
+        if target["language"] != "python":
+            raise ValueError("Target language must be python")
+
+        processes = super().generate(target)
+
+        if target.get("use-pydantic", False):
+            # Wait for existing processes to finish before starting the modification
+            # process.
+            wait_for_processes(processes, print_stdout=False)
+            self._use_pydantic(target)
 
         return processes
