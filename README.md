@@ -84,14 +84,19 @@ It's a JSONRecord contains the object having following properties:
                             If this is set to true, the generated code will use `pydantic.dataclasses.dataclass` as a `dataclass` decorator so that you can use pydantic's validation features.
                             Otherwise, the generated code will be plain python dataclasses.
                             Defaults to `false`.
+- `subsriptable (boolean)`: Whether to make the generated class subscriptable.
+                            If this is set to true, the generated class will be subscriptable so that you can access the properties of the class like `obj["property"]`.
+                            Otherwise, the generated class will not be subscriptable.
+                            Defaults to `false`.
 
 ##### `targets` - Language Specific Options - TypeScript
 
 - `tsconfig-path (string)`: The path to the tsconfig file.
-                   This will be used to compile typescript code 
-                   to javascript code and type declarations.
-                   If you want to generate plain javascript artifact with type declarations, 
-                   you should also provide this option.
+                            This will be used to compile typescript code 
+                            to javascript code and type declarations.
+                            If you want to automatically generate 
+                            plain javascript artifact with type declarations, 
+                            you should also provide this option.
 
 
 ### Configuration Example
@@ -106,7 +111,9 @@ Example congfiguration file is provided below. Copy it and modify it to your nee
   "targets": [
     {
       "language": "python",
-      "path": "gen/python"
+      "path": "gen/python",
+      "use-pydantic": true,
+      "subscriptable": true
     },
     {
       "language": "typescript",
