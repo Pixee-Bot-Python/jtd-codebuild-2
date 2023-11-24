@@ -2,6 +2,7 @@
 import os
 import re
 import subprocess
+from functools import reduce
 from typing import Dict, Any, AnyStr, List
 from io import TextIOWrapper
 from ..utils import wait_for_processes
@@ -35,6 +36,22 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
     
     For example, if the type hint line is `    a: 'Dict[str, Any]'`,
     regex captures this line.
+    """
+
+    classmethod_regex = r"^[ ]{4}@classmethod$"
+    """This regex captures the classmethod decorator line.
+    """
+
+    subscript_methods = [
+        "    def __getitem__(self, key: str) -> Any:\n",
+        "        return getattr(self, key)\n",
+        "\n",
+        "    def __setitem__(self, key: str, value: Any) -> None:\n",
+        "        setattr(self, key, value)\n",
+        "\n",
+    ]
+    """These lines are injected to the generated code to make the dataclass
+    subscriptable.
     """
 
     def _open_schema_file(
@@ -135,26 +152,9 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
 
         return lines
 
-    def generate(self, target: Dict[AnyStr, Any]) -> List[subprocess.Popen]:
-        if target["language"] != "python":
-            raise ValueError("Target language must be python")
-
-        processes = super().generate(target)
-        if "use-pydantic" not in target or not target["use-pydantic"]:
-            return processes
-
-        # Wait for existing processes to finish before starting the modification
-        # process.
-        wait_for_processes(processes, print_stdout=False)
-
+    def _use_pydantic(self, lines: List[AnyStr]) -> List[AnyStr]:
         # Inject pydantic's dataclass decorator to the generated code
         # if `use-pydantic` is set to true.
-        target_path = self.get_target_path(target)
-        with self._open_schema_file(target_path, "r") as f:
-            lines = f.readlines()
-
-        # Disable linter for the entire file
-        lines.insert(0, "# flake8: noqa\n")
 
         # Remove built-in dataclass decorator imoprt
         lines.remove("from dataclasses import dataclass\n")
@@ -174,6 +174,50 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
 
         # Inject :meth:`.model_rebuild`_ calls for every models
         lines = self._inject_rebuild_dataclass_calls(lines)
+
+        return lines
+
+    def _use_subscriptable_dataclass(self, lines: List[AnyStr]) -> List[AnyStr]:
+        # We insert the subscriptable methods to the line before the classmethod
+        # decorator line.
+        line_indexes_to_insert = [
+            i
+            for i, line in enumerate(lines)
+            if re.match(self.classmethod_regex, line) is not None
+        ]
+
+        # Insert the subscriptable methods code lines
+        lines_methods_inserted: List[AnyStr] = []
+        for i, line in enumerate(lines):
+            if i in line_indexes_to_insert:
+                lines_methods_inserted.extend(self.subscript_methods)
+            lines_methods_inserted.append(line)
+
+        return lines_methods_inserted
+
+    def generate(self, target: Dict[AnyStr, Any]) -> List[subprocess.Popen]:
+        if target["language"] != "python":
+            raise ValueError("Target language must be python")
+
+        processes = super().generate(target)
+
+        # Wait for existing processes to finish before starting the modification
+        # process.
+        wait_for_processes(processes, print_stdout=False)
+
+        # Read the generated code
+        target_path = self.get_target_path(target)
+        with self._open_schema_file(target_path, "r") as f:
+            lines = f.readlines()
+
+        # Disable linter for the entire file
+        lines.insert(0, "# flake8: noqa\n")
+
+        if target.get("use-pydantic", False):
+            lines = self._use_pydantic(lines)
+
+        if target.get("subscriptable", False):
+            lines = self._use_subscriptable_dataclass(lines)
 
         # Write the modified code to the file
         with self._open_schema_file(target_path, "w") as f:

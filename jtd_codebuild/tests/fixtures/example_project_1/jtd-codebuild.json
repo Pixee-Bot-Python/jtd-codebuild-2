@@ -5,7 +5,13 @@
   "targets": [
     {
       "language": "python",
-      "path": "gen/python"
+      "path": "gen/python",
+      "use-pydantic": true,
+      "subscriptable": true
+    },
+    {
+      "language": "typescript",
+      "path": "gen/typescript"
     }
   ]
 }
