@@ -11,7 +11,8 @@
     {
       "language": "python",
       "path": "gen/python_typeddict",
-      "use-typeddict": true
+      "use-typeddict": true,
+      "property-case": "camel"
     },
     {
       "language": "python",

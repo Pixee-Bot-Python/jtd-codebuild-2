@@ -32,7 +32,11 @@ def test_example_project_1():
     # Test python pydantic code with `Book` class
     from .fixtures.example_project_1.gen.python_pydantic import Book
 
-    book = Book(id="1", name="Harry Potter")
+    book = Book(
+        id="1",
+        name="Harry Potter",
+        table_of_contents=["Chapter 1", "Chapter 2"],
+    )
     assert book.id == "1"
 
     book.id = "2"
@@ -46,6 +50,11 @@ def test_example_project_1():
     # Test python typeddict code with `Book` class
     from .fixtures.example_project_1.gen.python_typeddict import Book
 
-    book = Book(id="1", name="Harry Potter")
+    book = Book(
+        id="1",
+        name="Harry Potter",
+        tableOfContents=["Chapter 1", "Chapter 2"],
+    )
     assert book["id"] == "1"
     assert book["name"] == "Harry Potter"
+    assert book["tableOfContents"] == ["Chapter 1", "Chapter 2"]

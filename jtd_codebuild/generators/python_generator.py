@@ -4,6 +4,7 @@ import re
 import subprocess
 from typing import Dict, Any, AnyStr, List
 from io import TextIOWrapper
+from caseconverter.camel import camelcase
 from ..utils import wait_for_processes
 from .generator import JTDCodeGenerator
 
@@ -191,7 +192,24 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
 
         return lines
 
-    def _use_pydantic(self, lines: List[AnyStr]) -> List[AnyStr]:
+    def _with_camel_cased_property_names(self, lines: List[AnyStr]) -> List[AnyStr]:
+        """Converts the property names to camel case.
+
+        Args:
+            lines: The lines to convert.
+
+        Returns:
+            The converted lines.
+        """
+        for i, line in enumerate(lines):
+            # If the line is a type hint, convert the property name to camel case.
+            if re.match(self.type_hint_regex, line) is not None:
+                property_name = line.split(":")[0].strip()
+                lines[i] = line.replace(property_name, camelcase(property_name))
+
+        return lines
+
+    def _with_pydantic(self, lines: List[AnyStr]) -> List[AnyStr]:
         # Inject pydantic's dataclass decorator to the generated code
         # if `use-pydantic` is set to true.
 
@@ -217,7 +235,7 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
 
         return lines
 
-    def _use_typeddict(self, lines: List[AnyStr]) -> List[AnyStr]:
+    def _with_typeddict(self, lines: List[AnyStr]) -> List[AnyStr]:
         # Inject typeddict's dataclass decorator to the generated code
         # if `use-typeddict` is set to true.
 
@@ -243,7 +261,7 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
 
         return lines
 
-    def _use_subscriptable_dataclass(self, lines: List[AnyStr]) -> List[AnyStr]:
+    def _with_subscriptable_dataclass(self, lines: List[AnyStr]) -> List[AnyStr]:
         # We insert the subscriptable methods to the line before the classmethod
         # decorator line.
         line_indexes_to_insert = [
@@ -273,15 +291,22 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
         if target["language"] != "python":
             raise ValueError("Target language must be python")
 
-        if target.get("use-typeddict", False) and target.get("use-pydantic", False):
+        use_pydanitc = target.get("use-pydantic", False)
+        use_typeddict = target.get("use-typeddict", False)
+        property_case = target.get("property-case", None)
+        subscriptable = target.get("subscriptable", None)
+
+        if use_pydanitc and use_typeddict:
             raise ValueError("Cannot use both typeddict and pydantic")
 
-        if (
-            target.get("use-typeddict", False)
-            and target.get("subscriptable", None) is not None
-        ):
+        if use_typeddict and subscriptable is not None:
             raise Warning(
                 "TypedDict is always subscriptable. `subscriptable` option is ignored."
+            )
+        if property_case is not None and use_typeddict is False:
+            raise Warning(
+                "`propery-case` option is currently only supported for typeddict."
+                "The option is ignored."
             )
 
     def generate(self, target: Dict[AnyStr, Any]) -> List[subprocess.Popen]:
@@ -316,16 +341,20 @@ class JTDCodeGeneratorPythonTarget(JTDCodeGenerator):
 
         use_pydanitc = target.get("use-pydantic", False)
         use_typeddict = target.get("use-typeddict", False)
+        property_case = target.get("property-case", "snake")
         subscriptable = target.get("subscriptable", False)
 
         if use_pydanitc:
-            lines = self._use_pydantic(lines)
+            lines = self._with_pydantic(lines)
 
         if use_typeddict:
-            lines = self._use_typeddict(lines)
+            lines = self._with_typeddict(lines)
+
+        if property_case == "camel" and use_typeddict:
+            lines = self._with_camel_cased_property_names(lines)
 
         if subscriptable and not use_typeddict:
-            lines = self._use_subscriptable_dataclass(lines)
+            lines = self._with_subscriptable_dataclass(lines)
 
         # Write the modified code to the file
         with self._open_schema_file(target_path, "w") as f:

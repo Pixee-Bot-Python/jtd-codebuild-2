@@ -6,8 +6,6 @@ This tool is built on top of [`jtd-codegen`](https://jsontypedef.com/) so check 
 
 ## Prerequisites
 
-- Python
-  - [pyyaml](https://pyyaml.org/)
 - [jtd-codegen](https://jsontypedef.com/docs/jtd-codegen/)
 
 ## Installation
@@ -86,6 +84,10 @@ It's a JSONRecord contains the object having following properties:
                             Defaults to `false`.
 - `use-typeddict (boolean)`: Whether to use `TypedDict` instead of `dataclass`.
                              If this is set to true, the generated code will use `TypedDict` instead of `dataclass`. This property cannot be set to true if `use-pydantic` is set to true. Also, subscriptable option will be ignored if this is set to true.
+- `property-case (enum)`: The case of the property names.
+                          This property is only effective when `use-typeddict` is set to true.
+                          Available values are `snake` and `camel`.
+                          Defaults to `snake`.
 - `subscriptable (boolean)`: Whether to make the generated class subscriptable.
                             If this is set to true, the generated class will be subscriptable so that you can access the properties of the class like `obj["property"]`.
                             Otherwise, the generated class will not be subscriptable.
