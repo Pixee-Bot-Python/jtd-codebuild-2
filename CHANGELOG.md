@@ -2,6 +2,23 @@
 
 
 
+## v0.3.0 (2023-12-10)
+
+### Chore
+
+* chore: version bump for publish ([`9f94fc1`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/9f94fc1d3948770dbcdc3882e60d075f87d80f30))
+
+* chore: add get method ([`72a0b8e`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/72a0b8eca45078a3b57855d0ba07b714e76332bc))
+
+### Documentation
+
+* docs: [no ci] contributing docs ([`1b961c4`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/1b961c4410f3ffbb57042fcfec9a7872782447ce))
+
+### Feature
+
+* feat: add typeddict option to python generator ([`7c9fab8`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/7c9fab831f5dd21e9b2a71cb36d64254261a526f))
+
+
 ## v0.2.0 (2023-11-24)
 
 ### Documentation
