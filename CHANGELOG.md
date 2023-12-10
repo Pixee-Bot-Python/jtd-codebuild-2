@@ -2,6 +2,17 @@
 
 
 
+## v0.4.0 (2023-12-10)
+
+### Chore
+
+* chore: resolve merge conflict ([`1000249`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/10002493eecc7ba8210954ba9de2ee638c7e28f7))
+
+### Feature
+
+* feat: add camel case property name option in python generation option ([`2f8b745`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/2f8b7459c9f610b811c820ff90532ec145ba4ab7))
+
+
 ## v0.3.0 (2023-12-10)
 
 ### Chore
