@@ -16,6 +16,7 @@ click = "^8.1.7"
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.1.0"
 black = "^23.10.1"
+poethepoet = "^0.24.4"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.3"
@@ -26,6 +27,9 @@ python-semantic-release = "^8.3.0"
 
 [tool.poetry.scripts]
 jtd-codebuild = "jtd_codebuild.__main__:cli"
+
+[tool.poe.tasks]
+test = "python -m pytest"
 
 [tool.black]
 line-length = 88
@@ -88,7 +92,17 @@ allowed_tags = [
   "test",
 ]
 minor_tags = ["feat"]
-patch_tags = ["fix", "perf"]
+patch_tags = [
+  "fix",
+  "perf",
+  "build",
+  "chore",
+  "ci",
+  "docs",
+  "style",
+  "refactor",
+  "test",
+]
 
 [tool.semantic_release.remote]
 name = "origin"

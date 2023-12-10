@@ -6,6 +6,16 @@
     {
       "language": "python",
       "path": "gen/python",
+      "subscriptable": true
+    },
+    {
+      "language": "python",
+      "path": "gen/python_typeddict",
+      "use-typeddict": true
+    },
+    {
+      "language": "python",
+      "path": "gen/python_pydantic",
       "use-pydantic": true,
       "subscriptable": true
     },

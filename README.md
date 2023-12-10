@@ -84,7 +84,9 @@ It's a JSONRecord contains the object having following properties:
                             If this is set to true, the generated code will use `pydantic.dataclasses.dataclass` as a `dataclass` decorator so that you can use pydantic's validation features.
                             Otherwise, the generated code will be plain python dataclasses.
                             Defaults to `false`.
-- `subsriptable (boolean)`: Whether to make the generated class subscriptable.
+- `use-typeddict (boolean)`: Whether to use `TypedDict` instead of `dataclass`.
+                             If this is set to true, the generated code will use `TypedDict` instead of `dataclass`. This property cannot be set to true if `use-pydantic` is set to true. Also, subscriptable option will be ignored if this is set to true.
+- `subscriptable (boolean)`: Whether to make the generated class subscriptable.
                             If this is set to true, the generated class will be subscriptable so that you can access the properties of the class like `obj["property"]`.
                             Otherwise, the generated class will not be subscriptable.
                             Defaults to `false`.
@@ -112,8 +114,18 @@ Example congfiguration file is provided below. Copy it and modify it to your nee
   "targets": [
     {
       "language": "python",
-      "path": "gen/python",
+      "path": "gen/python"
+    },
+    {
+      "language": "python",
+      "path": "gen/python-pydantic",
       "use-pydantic": true,
+      "subscriptable": true
+    },
+    {
+      "language": "python",
+      "path": "gen/python-typeddict",
+      "use-typeddict": true,
       "subscriptable": true
     },
     {
