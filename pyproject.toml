@@ -12,6 +12,7 @@ include = "jtd_codebuild"
 python = "^3.9"
 pyyaml = "^6.0.1"
 click = "^8.1.7"
+case-converter = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.1.0"
