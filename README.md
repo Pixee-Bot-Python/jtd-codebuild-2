@@ -16,9 +16,21 @@ pip install jtd-codebuild
 
 ## Usage
 
+First, you need to create a configuration file named `jtd-codebuild.json` in the root of your project. (See [Configuration](#configuration))
+
+Then, write JSON type definition IDL files in yaml format in the directory you specified in the configuration file.
+
+After all of that, you can run the command below to generate code.
+
 ```bash
 jtd-codebuild path/to/the/folder/where/jtd-codebuild.json/is/located
 ```
+
+### Usage Example
+
+You can find the example project here: [jtd_codebuild/tests/fixtures/example_project_1](./jtd_codebuild/tests/fixtures/example_project_1)
+
+Also, you can get a sense of how this tool works by looking at the test cases: [jtd_codebuild/tests/test_example_project_1.py](./jtd_codebuild/tests/test_example_project_1.py)
 
 
 ## Required conventions
