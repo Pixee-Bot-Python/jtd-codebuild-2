@@ -47,7 +47,7 @@ where every definition files will be merged into.
 
 Defaults to `schema.jtd.yaml`
 
-#### `definitions-path`
+#### `definitions-path` (alias: `definitions-paths`)
 
 The path to the definitions directory.
 This directory will be recursively searched for definition files.

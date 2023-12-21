@@ -1,19 +1,18 @@
 import os
 import subprocess
 
-
 # Get current working directory
 cwd = os.path.dirname(__file__)
 
 
 def _root_path(file_path: str) -> str:
-    return os.path.join(cwd, "fixtures/example_project_1", file_path)
+    return os.path.join(cwd, "fixtures/example_project_2", file_path)
 
 
-def test_example_project_1():
+def test_example_project_2():
     # Run the command
     subprocess.check_call(
-        "jtd-codebuild fixtures/example_project_1",
+        "jtd-codebuild fixtures/example_project_2",
         shell=True,
         cwd=cwd,
     )
@@ -32,7 +31,7 @@ def test_example_project_1():
     assert os.path.exists(_root_path("gen/typescript/index.ts"))
 
     # Test python pydantic code with `Book` class
-    from .fixtures.example_project_1.gen.python_pydantic import Book
+    from .fixtures.example_project_2.gen.python_pydantic import Book
 
     book = Book(
         id="1",
@@ -50,7 +49,7 @@ def test_example_project_1():
     assert book.get("id") == "3"
 
     # Test python typeddict code with `Book` class
-    from .fixtures.example_project_1.gen.python_typeddict import Book
+    from .fixtures.example_project_2.gen.python_typeddict import Book
 
     book = Book(
         id="1",

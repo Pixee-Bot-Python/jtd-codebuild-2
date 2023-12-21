@@ -1,7 +1,7 @@
-# flake8: noqa: E402
-
 import os
 import yaml
+import itertools
+from os.path import join
 from typing import Dict, AnyStr, Any
 from .config import get_config
 from .utils import file_is_yaml
@@ -18,15 +18,21 @@ def load_definitions(cwd: str) -> Dict[AnyStr, Any]:
         Key is the definition name, value is the definition.
     """
     config = get_config(cwd)
-    definition_path = os.path.join(cwd, config["definitions-path"])
+    definition_paths = (
+        config.get("definitions-path", None) or config["definitions-paths"]
+    )
+    definition_paths = (
+        definition_paths if isinstance(definition_paths, list) else [definition_paths]
+    )
+    definition_paths = map(lambda path: join(cwd, path), definition_paths)
 
     definitions = {}
 
     # Recursively load all definitions
-    for root, dirs, files in os.walk(definition_path):
+    for root, dirs, files in itertools.chain(*map(os.walk, definition_paths)):
         for file in files:
             if file_is_yaml(file):
-                filepath = os.path.join(root, file)
+                filepath = join(root, file)
                 with open(filepath, "r") as f:
                     definition_parts = yaml.load(f, Loader=yaml.FullLoader)
                     for definition_name, definition in definition_parts.items():
