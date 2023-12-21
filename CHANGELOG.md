@@ -2,6 +2,31 @@
 
 
 
+## v0.5.0 (2023-12-21)
+
+### Chore
+
+* chore: raise error if conflicting key exists ([`0c4554e`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/0c4554eff0998dc74991a0c7eefc813c513b86d6))
+
+* chore: commit with [no ci] ([`8dfc9be`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/8dfc9bea0c61aa91e1791f579642c877bb1eddf2))
+
+### Documentation
+
+* docs: for extends feature ([`2a9ba5a`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/2a9ba5a850c5937f3255e990cb5929f1022a467e))
+
+* docs: add docs for examples [no ci] ([`92141b5`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/92141b5901d2153707dc4a5e85b716c9ca6fce98))
+
+### Feature
+
+* feat: add inheritance ([`5dd1c8a`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/5dd1c8ad32ed73c0dd5d161249e6a3cee0a11144))
+
+* feat: support for multiple definitions ([`a82f2eb`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/a82f2eb27e23ca4838000221dda990a18cd6fa81))
+
+### Unknown
+
+* Merge branch &#39;dev&#39; ([`22cc49e`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/22cc49e05225f23d27bcb120b4c73ef1bc9f51a6))
+
+
 ## v0.4.0 (2023-12-10)
 
 ### Chore
