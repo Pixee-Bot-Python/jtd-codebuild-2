@@ -36,6 +36,10 @@ def load_definitions(cwd: str) -> Dict[AnyStr, Any]:
                 with open(filepath, "r") as f:
                     definition_parts = yaml.load(f, Loader=yaml.FullLoader)
                     for definition_name, definition in definition_parts.items():
+                        if definition_name in definitions:
+                            raise ValueError(
+                                f"Definition name {definition_name} already exists."
+                            )
                         definitions[definition_name] = definition
 
     return definitions
