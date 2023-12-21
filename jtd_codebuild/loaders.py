@@ -19,7 +19,9 @@ def load_definitions(cwd: str) -> Dict[AnyStr, Any]:
     """
     config = get_config(cwd)
     definition_paths = (
-        config.get("definitions-path", None) or config["definitions-paths"]
+        config.get("definitions-path", None)
+        or config.get("definitions-paths", None)
+        or []
     )
     definition_paths = (
         definition_paths if isinstance(definition_paths, list) else [definition_paths]

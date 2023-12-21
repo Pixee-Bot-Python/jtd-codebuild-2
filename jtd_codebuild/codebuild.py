@@ -4,6 +4,7 @@ import subprocess
 from typing import List
 from .bundle import bundle_schema
 from .config import get_config
+from .inheritance import resolve_inheritance
 from .utils import safe_open, wait_for_processes
 from .generators import (
     JTDCodeGenerator,
@@ -28,6 +29,9 @@ def jtd_codebuild(cwd: str) -> None:
     print("[jtd-codebuild] Bundling schema files...")
     schema = bundle_schema(cwd)
 
+    print("[jtd-codebuild] Resolving inheritance...")
+    schema = resolve_inheritance(schema)
+
     # Write a full schema file to output specified
     # by the configuration file in json format
     print("[jtd-codebuild] Writing full schema...")
@@ -37,7 +41,7 @@ def jtd_codebuild(cwd: str) -> None:
 
     print("[jtd-codebuild] Generating code...")
     # Generate code from the full schema file
-    targets = config["targets"]
+    targets = config.get("targets", [])
     processes: List[subprocess.Popen] = []
     for target in targets:
         generator: JTDCodeGenerator = None

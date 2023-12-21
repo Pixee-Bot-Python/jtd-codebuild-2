@@ -6,13 +6,13 @@ cwd = os.path.dirname(__file__)
 
 
 def _root_path(file_path: str) -> str:
-    return os.path.join(cwd, "fixtures/example_project_2", file_path)
+    return os.path.join(cwd, "fixtures/example_project_4", file_path)
 
 
-def test_example_project_2():
+def test_example_project_4():
     # Run the command
     subprocess.check_call(
-        "jtd-codebuild fixtures/example_project_2",
+        "jtd-codebuild fixtures/example_project_4",
         shell=True,
         cwd=cwd,
     )

@@ -1,27 +1,9 @@
-import os
-from functools import reduce
+import itertools
+from os.path import join
 from typing import Dict, AnyStr, Any
 from .loaders import load_definitions, load_root_schema
 from .config import get_config
-
-
-def _merge(
-    a: Dict[AnyStr, Any],
-    b: Dict[AnyStr, Any],
-) -> Dict[AnyStr, Any]:
-    """Merges two dictionaries in shallow manner.
-
-    If the same key exists in both dictionaries,
-    the value in `b` will take precedence.
-
-    Args:
-        a: The first dictionary.
-        b: The second dictionary.
-
-    Returns:
-        The merged dictionary.
-    """
-    return {**a, **b}
+from .utils import get_items
 
 
 def bundle_schema(cwd: str) -> Dict[AnyStr, Any]:
@@ -41,8 +23,7 @@ def bundle_schema(cwd: str) -> Dict[AnyStr, Any]:
 
     # Extract schemas from includes
     schemas = [
-        bundle_schema(os.path.join(cwd, include))
-        for include in config.get("includes", [])
+        bundle_schema(join(cwd, include)) for include in config.get("includes", [])
     ]
 
     # Extract definitions from includes schemas
@@ -55,6 +36,10 @@ def bundle_schema(cwd: str) -> Dict[AnyStr, Any]:
     root_schema = load_root_schema(cwd)
 
     # Add definitions to root schema
-    root_schema["definitions"] = reduce(_merge, definitions)
+    root_schema["definitions"] = {}
+    for defname, definition in itertools.chain(*map(get_items, definitions)):
+        if defname in root_schema["definitions"]:
+            raise ValueError(f"Duplicate definition: {defname}")
+        root_schema["definitions"][defname] = definition
 
     return root_schema

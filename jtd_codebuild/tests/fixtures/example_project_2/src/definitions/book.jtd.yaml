@@ -1,4 +1,17 @@
+AuthorsBooksMixin:
+  properties:
+    authors_books:
+      elements:
+        ref: book
+
+AuthorMixin:
+  extends: AuthorsBooksMixin
+  properties:
+    author:
+      ref: user
+
 book:
+  extends: AuthorMixin
   properties:
     id:
       type: string
@@ -7,3 +20,11 @@ book:
     tableOfContents:
       elements:
         type: string
+
+journal:
+  extends:
+    - book
+    - AuthorMixin
+  properties:
+    issuedDate:
+      type: timestamp
