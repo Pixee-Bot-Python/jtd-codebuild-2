@@ -49,13 +49,13 @@ Defaults to `schema.jtd.yaml`
 
 #### `definitions-path` (alias: `definitions-paths`)
 
-The path to the definitions directory.
+The path to single or multiple definition files.
 This directory will be recursively searched for definition files.
 
 Definition file is a file that contains a single or multiple definitions.
 Checkout the documentation below for more information.
 
-Defaults to `definitions`
+Defaults to `[]`
 
 #### `output-schema-path`
 
@@ -79,6 +79,8 @@ Defaults to `[]`
 #### `targets`
 
 Compile targets.
+
+Defaults to `[]`
 
 It's a JSONRecord contains the object having following properties:
   - `language (string)`: The language of the target.
@@ -225,6 +227,52 @@ This will be merged as a single schema like below.
 ```
 
 Checkout more about `ref` if you don't have a clue about it. https://jsontypedef.com/docs/jtd-in-5-minutes/#ref-schemas
+
+### Inheritance
+
+`jtd-codebuild` supports inheritance between type definitions.
+
+You can do this by using `extends` keyword like below.
+
+```yaml
+Person:
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+
+Chef:
+  extends: Person
+  properties:
+    restaurant:
+      type: string
+
+HeadChef:
+  extends: Chef
+  properties:
+    sousChef:
+      ref: Chef
+```
+
+You can also extend multiple types like below.
+
+```yaml
+Person:
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+
+MyRestaurantMixin:
+  properties:
+    restaurant:
+      type: string
+
+Chef:
+  extends: [Person, MyRestaurantMixin]
+```
 
 ### Manual dependency management
 

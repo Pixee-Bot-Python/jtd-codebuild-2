@@ -11,7 +11,7 @@ AuthorMixin:
       ref: user
 
 book:
-  extends: AuthorMixin
+  extends: [AuthorMixin]
   properties:
     id:
       type: string
