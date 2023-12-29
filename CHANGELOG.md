@@ -2,6 +2,13 @@
 
 
 
+## v0.6.0 (2023-12-29)
+
+### Feature
+
+* feat: add allow duplicate defs options ([`cb1518c`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/cb1518cc82f2c762a4825097830280aa336cb9ec))
+
+
 ## v0.5.0 (2023-12-21)
 
 ### Chore
