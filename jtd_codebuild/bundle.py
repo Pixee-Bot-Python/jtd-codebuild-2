@@ -37,8 +37,9 @@ def bundle_schema(cwd: str) -> Dict[AnyStr, Any]:
 
     # Add definitions to root schema
     root_schema["definitions"] = {}
+    allow_duplicate_defs = config.get("allow-duplicate-defs", False)
     for defname, definition in itertools.chain(*map(get_items, definitions)):
-        if defname in root_schema["definitions"]:
+        if defname in root_schema["definitions"] and not allow_duplicate_defs:
             raise ValueError(f"Duplicate definition: {defname}")
         root_schema["definitions"][defname] = definition
 

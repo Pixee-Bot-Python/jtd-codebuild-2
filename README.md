@@ -76,6 +76,16 @@ when generating schema file you are working on.
 
 Defaults to `[]`
 
+#### `allow-duplicate-defs`
+
+Whether to allow duplicate definitions.
+
+This only applies to the definitions that are not in the same jtd codebuild project.
+
+That is, definitions in `definitions-path` in each project always raises error if there are duplicate definitions.
+
+Defaults to `false`
+
 #### `targets`
 
 Compile targets.
