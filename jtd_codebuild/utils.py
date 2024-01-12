@@ -66,6 +66,18 @@ def file_is_yaml(file: str) -> bool:
     return file.endswith(".yaml") or file.endswith(".yml")
 
 
+def file_is_json(file: str) -> bool:
+    """Check if a file is a JSON file.
+
+    Args:
+        file: The file name.
+
+    Returns:
+        True if the file is a JSON file, False otherwise.
+    """
+    return file.endswith(".json")
+
+
 def safe_mkdir(path: str) -> None:
     """Create a directory with creating its parent directories if they do not exist.
 
