@@ -1,6 +1,6 @@
 # JSON Type Definition Code Build
 
-jtd-codebuild is a tool for generating language specific schemas and interfaces code from JSON Type Definition IDL files in yaml format.
+jtd-codebuild is a tool for generating language specific schemas and interfaces code from JSON Type Definition IDL files in either yaml or json format.
 
 This tool is built on top of [`jtd-codegen`](https://jsontypedef.com/) so check out the documentation if you don't have a clue about JSON Type Definition.
 
@@ -18,7 +18,7 @@ pip install jtd-codebuild
 
 First, you need to create a configuration file named `jtd-codebuild.json` in the root of your project. (See [Configuration](#configuration))
 
-Then, write JSON type definition IDL files in yaml format in the directory you specified in the configuration file.
+Then, write JSON type definition IDL files in either yaml or json format in the directory you specified in the configuration file.
 
 After all of that, you can run the command below to generate code.
 
