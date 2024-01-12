@@ -2,6 +2,21 @@
 
 
 
+## v0.7.0 (2024-01-12)
+
+### Documentation
+
+* docs: update readme ([`4f0d48b`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/4f0d48b0a0756df36d349a2f9b8f57b6d4110206))
+
+### Feature
+
+* feat: add json support ([`074dcc8`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/074dcc8377c66cb3883e166c92fc0ea7876ef29e))
+
+### Fix
+
+* fix: create definitions only if definitions key is not present at root schema ([`9a648d0`](https://github.com/01Joseph-Hwang10/jtd-codebuild/commit/9a648d0dd155d1536e7f3c718409b6191b758ddb))
+
+
 ## v0.6.0 (2023-12-29)
 
 ### Feature
