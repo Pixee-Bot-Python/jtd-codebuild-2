@@ -38,7 +38,7 @@ def load_definitions(cwd: str) -> Dict[AnyStr, Any]:
                 filepath = join(root, file)
                 with open(filepath, "r") as f:
                     definition_parts = (
-                        yaml.load(f, Loader=yaml.FullLoader)
+                        yaml.load(f, Loader=yaml.SafeLoader)
                         if file_is_yaml(file)
                         else json.load(f)
                     )
@@ -66,7 +66,7 @@ def load_root_schema(cwd: str) -> Dict[AnyStr, Any]:
 
     with open(schema_path, "r") as f:
         return (
-            yaml.load(f, Loader=yaml.FullLoader)
+            yaml.load(f, Loader=yaml.SafeLoader)
             if file_is_yaml(schema_path)
             else json.load(f)
         )
