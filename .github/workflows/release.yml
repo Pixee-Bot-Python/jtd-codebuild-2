@@ -27,7 +27,7 @@ jobs:
           ref: ${{ github.event.after }}
 
       # Set up Python
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         if: ${{ steps.release.outputs.release_created == 'true' }}
         with:
           python-version: 3.11
@@ -50,7 +50,7 @@ jobs:
 
       # Install dependencies
       - if: ${{ steps.release.outputs.release_created == 'true' && steps.cache-dependencies.outputs.cache-hit != 'true' }}
-        run: poetry install --without test,dev
+        run: poetry install
 
       # Configure basic credentials for PyPI
       - run: poetry config pypi-token.pypi "${{ secrets.PYPI_PASSWORD }}"

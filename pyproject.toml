@@ -28,6 +28,8 @@ jtd-codebuild = "jtd_codebuild.__main__:cli"
 
 [tool.poe.tasks]
 test = "python -m pytest"
+lint = "flake8 jtd_codebuild"
+check-format = "black jtd_codebuild --check"
 
 [tool.black]
 line-length = 88
