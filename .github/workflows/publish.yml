@@ -1,41 +1,40 @@
-name: Build and publish package
-
 on:
   push:
     branches:
       - master
 
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+permissions:
+  contents: write
+  pull-requests: write
+
+name: Release and publish packages
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    concurrency: release
-    permissions:
-      id-token: write
-      contents: write
-
     steps:
-      # Checkout the repository
-      - uses: actions/checkout@v3
+      - uses: google-github-actions/release-please-action@v4
+        id: release
         with:
-          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
 
-      # Set-up git user
-      - name: Set-up git user
-        run: |
-          set -e
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+      # Check-out the repository
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created == 'true' }}
+        with:
+          ref: ${{ github.event.after }}
 
       # Set up Python
       - uses: actions/setup-python@v1
+        if: ${{ steps.release.outputs.release_created == 'true' }}
         with:
           python-version: 3.11
 
       # Set up Poetry
       - uses: snok/install-poetry@v1
+        if: ${{ steps.release.outputs.release_created == 'true' }}
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
@@ -44,20 +43,22 @@ jobs:
       - name: Load cached venv
         id: cache-dependencies
         uses: actions/cache@v3
+        if: ${{ steps.release.outputs.release_created == 'true' }}
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
       # Install dependencies
-      - if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      - if: ${{ steps.release.outputs.release_created == 'true' && steps.cache-dependencies.outputs.cache-hit != 'true' }}
         run: poetry install --without test,dev
-
-      # Version package
-      - run: poetry run semantic-release version
 
       # Configure basic credentials for PyPI
       - run: poetry config pypi-token.pypi "${{ secrets.PYPI_PASSWORD }}"
+        if: ${{ steps.release.outputs.release_created == 'true' }}
 
       # Build and publish package
       - run: poetry build
+        if: ${{ steps.release.outputs.release_created == 'true' }}
+
       - run: poetry publish
+        if: ${{ steps.release.outputs.release_created == 'true' }}
