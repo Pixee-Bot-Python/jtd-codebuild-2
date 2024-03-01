@@ -30,19 +30,7 @@ jobs:
         run: poetry install
 
       - id: install-jtd-codegen
-        run: |
-          # Download and unpack jtd-codegen
-          jtd_codegen_archive_url=$(curl https://api.github.com/repos/jsontypedef/json-typedef-codegen/releases | jq '.[0].assets.[] | select(.name | test("linux-gnu"))' | jq -r '.browser_download_url')
-          wget $jtd_codegen_archive_url -O jtd-codegen.zip
-          unzip jtd-codegen.zip
-
-          # Install jtd-codegen
-          chmod +x jtd-codegen
-          mv jtd-codegen .jtd-codegen/jtd-codegen
-          export PATH=$PATH:$(pwd)/.jtd-codegen
-
-          # Clean up
-          rm -f jtd-codegen.zip
+        run: source ./ci/install-jtd-codegen.sh
 
       - run: poetry run poe test jtd_codebuild/tests
 
