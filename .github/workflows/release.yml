@@ -50,7 +50,7 @@ jobs:
 
       # Install dependencies
       - if: ${{ steps.release.outputs.release_created == 'true' && steps.cache-dependencies.outputs.cache-hit != 'true' }}
-        run: poetry install
+        run: poetry install --all-extras
 
       # Configure basic credentials for PyPI
       - run: poetry config pypi-token.pypi "${{ secrets.PYPI_PASSWORD }}"

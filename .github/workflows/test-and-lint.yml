@@ -27,7 +27,7 @@ jobs:
 
       - id: install-dependencies
         if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
-        run: poetry install
+        run: poetry install --all-extras
 
       - id: install-jtd-codegen
         run: source ./ci/install-jtd-codegen
@@ -54,7 +54,7 @@ jobs:
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
       - if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
-        run: poetry install
+        run: poetry install --all-extras
 
       - run: poetry run poe lint
 
@@ -78,6 +78,6 @@ jobs:
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
       - if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
-        run: poetry install
+        run: poetry install --all-extras
 
       - run: poetry run poe check-format
