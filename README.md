@@ -11,11 +11,7 @@ This tool is built on top of [`jtd-codegen`](https://jsontypedef.com/) so check 
 ## Installation
 
 ```bash
-# Basic installation
 pip install jtd-codebuild
-
-# If you want to use it with pydantic
-pip install 'jtd-codebuild[pydantic]'
 ```
 
 ## Usage
