@@ -42,7 +42,7 @@ jobs:
           export PATH=$PATH:$(pwd)/.jtd-codegen
 
           # Clean up
-          rm jtd-codegen.zip
+          rm -f jtd-codegen.zip
 
       - run: poetry run poe test jtd_codebuild/tests
 
