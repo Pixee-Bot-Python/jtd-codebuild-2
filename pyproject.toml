@@ -21,6 +21,7 @@ poethepoet = "^0.24.4"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.3"
+pydantic = "^2.6.3"
 
 
 [tool.poetry.scripts]
