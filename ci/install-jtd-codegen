@@ -9,7 +9,7 @@ unzip jtd-codegen.zip
 chmod +x jtd-codegen
 mkdir -p .jtd-codegen
 mv jtd-codegen .jtd-codegen/jtd-codegen
-export PATH=$PATH:$(pwd)/.jtd-codegen
+echo "$(pwd)/.jtd-codegen" >> $GITHUB_PATH
 
 # Clean up
 rm -f jtd-codegen.zip
