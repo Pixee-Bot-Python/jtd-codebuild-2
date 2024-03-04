@@ -2,6 +2,21 @@
 name = "jtd-codebuild"
 version = "0.7.0"
 description = "Tool for generating language specific schemas and interfaces code from JSON Type Definition IDL files in yaml format. Powered by jtd-codegen."
+classifiers = [
+  'Development Status :: 5 - Production/Stable',
+  'Intended Audience :: Developers',
+  'Natural Language :: English',
+  'Topic :: Software Development',
+  'Topic :: Software Development :: Libraries :: Python Modules',
+  'Topic :: Utilities',
+  'Programming Language :: Python :: 3 :: Only',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: Implementation :: CPython',
+  'Programming Language :: Python :: Implementation :: PyPy',
+  'License :: OSI Approved :: MIT License',
+]
 authors = ["01Joseph-Hwang10 <joseph95501@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -9,7 +24,7 @@ readme = "README.md"
 include = "jtd_codebuild"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.8.1,<4.0"
 pyyaml = "^6.0.1"
 click = "^8.1.7"
 case-converter = "^1.1.0"
