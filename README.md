@@ -1,6 +1,6 @@
 # JSON Type Definition Code Build
 
-[![PyPI version](https://badge.fury.io/py/jtd-codebuild.svg)](https://pypi.org/project/jtd-codebuild) [![Testsuite](https://github.com/01Joseph-Hwang10/jtd-codebuild/workflows/Testsuite/badge.svg)](https://github.com/01Joseph-Hwang10/jtd-codebuild/actions?query=workflow%3A"Test+and+Lint") [![Python version](https://img.shields.io/pypi/pyversions/jtd-codebuild.svg)](https://pypi.org/project/jtd-codebuild)
+[![PyPI version](https://badge.fury.io/py/jtd-codebuild.svg)](https://pypi.org/project/jtd-codebuild) [![Testsuite](https://github.com/01Joseph-Hwang10/jtd-codebuild/workflows/Test%20and%20Lint/badge.svg)](https://github.com/01Joseph-Hwang10/jtd-codebuild/actions?query=workflow%3A"Test+and+Lint") [![Python version](https://img.shields.io/pypi/pyversions/jtd-codebuild.svg)](https://pypi.org/project/jtd-codebuild)
 
 jtd-codebuild is a tool for generating language specific schemas and interfaces code from JSON Type Definition IDL files in either yaml or json format.
 
