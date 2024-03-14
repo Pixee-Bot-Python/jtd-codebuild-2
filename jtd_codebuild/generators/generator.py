@@ -2,6 +2,7 @@ import os
 import subprocess
 from typing import Dict, Any, AnyStr, List
 from ..utils import safe_mkdir
+from security import safe_command
 
 
 class JTDCodeGenerator:
@@ -66,8 +67,7 @@ class JTDCodeGenerator:
         target_language = target["language"]
         target_path = self.get_target_path(target)
         safe_mkdir(target_path)
-        process = subprocess.Popen(
-            self._codegen_command(self.schema_path, target_path, target_language),
+        process = safe_command.run(subprocess.Popen, self._codegen_command(self.schema_path, target_path, target_language),
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
