@@ -21,8 +21,7 @@ class JTDCodeGeneratorTypescriptTarget(JTDCodeGenerator):
         """
         return subprocess.run(
             f"tsc --project {tsconfig_path}",
-            shell=True,
-            stdout=subprocess.PIPE,
+            shell=False, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
 
