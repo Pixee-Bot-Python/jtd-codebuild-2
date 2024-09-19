@@ -68,8 +68,7 @@ class JTDCodeGenerator:
         safe_mkdir(target_path)
         process = subprocess.Popen(
             self._codegen_command(self.schema_path, target_path, target_language),
-            shell=True,
-            stdout=subprocess.PIPE,
+            shell=False, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
         return [process]
