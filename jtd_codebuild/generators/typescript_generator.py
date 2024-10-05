@@ -3,6 +3,7 @@ import subprocess
 from typing import Dict, Any, AnyStr, List
 from ..utils import wait_for_processes
 from .generator import JTDCodeGenerator
+from security import safe_command
 
 
 class JTDCodeGeneratorTypescriptTarget(JTDCodeGenerator):
@@ -19,8 +20,7 @@ class JTDCodeGeneratorTypescriptTarget(JTDCodeGenerator):
         Args:
             tsconfig_path: The path to the tsconfig.json file.
         """
-        return subprocess.run(
-            f"tsc --project {tsconfig_path}",
+        return safe_command.run(subprocess.run, f"tsc --project {tsconfig_path}",
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
